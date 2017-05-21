@@ -1,0 +1,29 @@
+{
+  "name": "orcinusd",
+  "version": "0.3.1",
+  "description": "Orcinus Daemon Library for NodeJS",
+  "main": "orcinusd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orcinustools/orcinusd-node.git"
+  },
+  "keywords": [
+    "orcinus",
+    "cluster",
+    "container"
+  ],
+  "author": "anak10thn <anak10thn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/orcinustools/orcinusd-node/issues"
+  },
+  "homepage": "https://github.com/orcinustools/orcinusd-node#readme",
+  "dependencies": {
+    "concat-stream": "^1.6.0",
+    "docker-modem": "^0.3.7",
+    "tar-fs": "^1.15.2"
+  }
+}
