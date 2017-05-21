@@ -1217,9 +1217,16 @@ orcinus.prototype.runPromise = function(image, cmd, streamo, createOptions, star
 
 /* Stacks */
 
-orcinus.prototype.listStacks = function(callback) {
+orcinus.prototype.listStacks = function(filterByName,callback) {
   var self = this;
-  var args = util.processArgs({filters:{driver:{overlay:true}}}, callback);
+  var stackFilter = {filters:{driver:{overlay:true}}};
+
+  if(filterByName){
+    stackFilter = {filters:{driver:{overlay:true},name:{}}};
+    stackFilter.filters.name[filterByName] = true;
+  }
+
+  var args = util.processArgs(stackFilter, callback);
 
   var optsf = {
     path: '/networks?',
@@ -1244,6 +1251,44 @@ orcinus.prototype.listStacks = function(callback) {
   } else {
     this.modem.dial(optsf, function(err, data) {
       args.callback(err, data);
+    });
+  }
+};
+
+orcinus.prototype.createStack = function(nameStack, callback) {
+  var self = this;
+  var opts = {
+        "Name" : nameStack,
+        "Ingress": true,
+        "Driver": "overlay"
+      }
+  var args = util.processArgs(opts, callback);
+  var optsf = {
+    path: '/networks/create?',
+    method: 'POST',
+    options: args.opts,
+    statusCodes: {
+      200: true, // unofficial, but proxies may return it
+      201: true,
+      404: 'driver not found',
+      500: 'server error'
+    }
+  };
+
+
+  if (args.callback === undefined) {
+    return new this.modem.Promise(function(resolve, reject) {
+      self.modem.dial(optsf, function(err, data) {
+        if (err) {
+          return reject(err);
+        }
+        resolve(self.getNetwork(data.Id));
+      });
+    });
+  } else {
+    this.modem.dial(optsf, function(err, data) {
+      if (err) return args.callback(err, data);
+      args.callback(err, self.getNetwork(data.Id));
     });
   }
 };
@@ -1443,5 +1488,6 @@ orcinus.Secret = Secret;
 orcinus.Task = Task;
 orcinus.Node = Node;
 orcinus.Exec = Exec;
+orcinus.Stack = Network;
 
 module.exports = orcinus;
