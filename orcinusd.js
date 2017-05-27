@@ -332,6 +332,10 @@ orcinus.prototype.getExec = function(id) {
   return new Exec(this.modem, id);
 };
 
+orcinus.prototype.getStack = function(id) {
+  return new Network(this.modem, id);
+};
+
 
 orcinus.prototype.listContainers = function(opts, callback) {
   var self = this;

@@ -1,6 +1,6 @@
 {
   "name": "orcinusd",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Orcinus Daemon Library for NodeJS",
   "main": "orcinusd.js",
   "scripts": {
