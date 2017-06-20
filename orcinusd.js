@@ -1259,12 +1259,13 @@ orcinus.prototype.listStacks = function(filterByName,callback) {
   }
 };
 
-orcinus.prototype.createStack = function(nameStack, callback) {
+orcinus.prototype.createStack = function(stack, callback) {
   var self = this;
   var opts = {
-        "Name" : nameStack,
+        "Name" : stack.Name,
         "Ingress": true,
-        "Driver": "overlay"
+        "Driver": "overlay",
+        "Labels" : stack.Labels
       }
   var args = util.processArgs(opts, callback);
   var optsf = {
