@@ -1263,7 +1263,7 @@ orcinus.prototype.createStack = function(nameStack, callback) {
   var self = this;
   var opts = {
         "Name" : nameStack,
-        "Ingress": true,
+        "Ingress": false,
         "Driver": "overlay"
       }
   var args = util.processArgs(opts, callback);
